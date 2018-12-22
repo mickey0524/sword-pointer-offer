@@ -27,7 +27,24 @@ def string_permutation_V1(s):
     return tmp[0]
 
 
+def string_permutation_V2(s):
+    length = len(s)
+    if length < 2:
+        return [s]
+
+    res = []
+
+    for i in xrange(length):
+        head = s[i]
+        sub_permutation = string_permutation_V2(s[:i] + s[i+1:])
+        for p in sub_permutation:
+            res.append(head + p)
+
+    return res
+
+
 if __name__ == "__main__":
     s = 'abc'
     print string_permutation(s)
     print string_permutation_V1(s)
+    print string_permutation_V2(s)
