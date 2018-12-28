@@ -28,13 +28,17 @@ def sort_array_for_min_number(arr):
 
 
 def quick_sort(arr, head, tail, bit_idx):
+    print arr
     while head < tail:
-        while head < tail and len(arr[head]) != bit_idx + 1 and arr[head][bit_idx + 1] < arr[head][bit_idx]:
+        while head < tail and len(arr[head]) > bit_idx + 1 and arr[head][bit_idx + 1] < arr[head][bit_idx]:
             head += 1
-        while head < tail and len(arr[tail]) != bit_idx + 1 and arr[tail][bit_idx + 1] >= arr[tail][bit_idx]:
+        while head < tail and len(arr[tail]) > bit_idx + 1 and arr[tail][bit_idx + 1] >= arr[tail][bit_idx]:
             tail -= 1
         if head == tail:
             break
+        if len(arr[head]) == bit_idx + 1 and len(arr[tail]) == bit_idx + 1:
+            tail -= 1
+            continue
         arr[head], arr[tail] = arr[tail], arr[head]
 
     return head
@@ -52,5 +56,5 @@ def partition(arr, head, tail, bit_idx):
 
 
 if __name__ == '__main__':
-    arr = [3, 32, 321, 432, 434, 43, 4]
+    arr = [3, 3, 32, 321, 432, 434, 43, 4, 5, 66, 67]
     print sort_array_for_min_number(arr)
