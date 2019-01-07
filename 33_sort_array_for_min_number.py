@@ -10,49 +10,24 @@ def sort_array_for_min_number(arr):
     if length == 1:
         return arr[0]
 
-    arr = [str(n) for n in arr]
-    arr.sort(key=lambda x: x[0])
+    arr = map(str, arr)
 
-    head = arr[0]
-    head_idx = 0
+    arr.sort(compare)
 
-    for idx, n in enumerate(arr):
-        if n[0] != head[0]:
-            partition(arr, head_idx, idx - 1, 0)
-            head = n
-            head_idx = idx
-
-    partition(arr, head_idx, length - 1, 0)
-
-    return int(''.join(arr))
+    return ''.join(arr)
 
 
-def quick_sort(arr, head, tail, bit_idx):
-    print arr
-    while head < tail:
-        while head < tail and len(arr[head]) > bit_idx + 1 and arr[head][bit_idx + 1] < arr[head][bit_idx]:
-            head += 1
-        while head < tail and len(arr[tail]) > bit_idx + 1 and arr[tail][bit_idx + 1] >= arr[tail][bit_idx]:
-            tail -= 1
-        if head == tail:
-            break
-        if len(arr[head]) == bit_idx + 1 and len(arr[tail]) == bit_idx + 1:
-            tail -= 1
-            continue
-        arr[head], arr[tail] = arr[tail], arr[head]
+def compare(a, b):
+    len_a, len_b = len(a), len(b)
 
-    return head
+    if len_a < len_b:
+        while len(a) < len_b:
+            a += a[-1]
+    elif len_a > len_b:
+        while len(b) < len_a:
+            b += b[-1]
 
-
-def partition(arr, head, tail, bit_idx):
-    if head >= tail:
-        return
-
-    idx = quick_sort(arr, head, tail, bit_idx)
-    partition(arr, head, idx - 1, bit_idx + 1)
-    partition(arr, idx + 1, tail, bit_idx + 1)
-
-    return
+    return -1 if a < b else 1
 
 
 if __name__ == '__main__':
