@@ -29,6 +29,23 @@ def transform_10_base_to_2_base(N):
     return res
 
 
+def transform_positive_10_base_to_n_base(N, n):
+    if N == 0:
+        return '0'
+
+    res = ''
+    while N != 0:
+        if N % n == 0:
+            res = '0' + res
+        else:
+            tmp = N % n
+            res = str(tmp) + res
+            N -= tmp
+        N /= n
+
+    return res
+
+
 def equal(a, b):
     return a == b
 
@@ -39,5 +56,4 @@ if __name__ == '__main__':
     print equal(transform_10_base_to_2_base(142), bin(142)[2:])
     print equal(transform_10_base_to_2_base(15352), bin(15352)[2:])
     print transform_10_base_to_2_base(-4123)
-
-
+    print transform_positive_10_base_to_n_base(69, 3)
