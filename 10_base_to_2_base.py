@@ -23,7 +23,18 @@ def transform_10_base_to_2_base(N):
     if symbol == -1:
         res = res.zfill(32)
         l = ['1' if ch == '0' else '0' for ch in res]
-        res = int(''.join(l)) + 1
+        carry = 1
+
+        for i in xrange(31, -1, -1):
+            bit = int(l[i]) + carry
+            if bit == 1:
+                l[i] = '1'
+                break
+
+            else:
+                l[i] = '0'
+
+        res = int(''.join(l))
         return str(res)
 
     return res
@@ -56,4 +67,5 @@ if __name__ == '__main__':
     print equal(transform_10_base_to_2_base(142), bin(142)[2:])
     print equal(transform_10_base_to_2_base(15352), bin(15352)[2:])
     print transform_10_base_to_2_base(-4123)
+    print transform_10_base_to_2_base(-10)
     print transform_positive_10_base_to_n_base(69, 3)
